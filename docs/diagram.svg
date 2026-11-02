@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="system-ui, sans-serif" font-size="14">
+  <title>PULSE data lineage</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3b5bdb"/></marker>
+  </defs>
+  <rect width="960" height="420" fill="#fff"/>
+  <g stroke="#444" fill="#f6f7f9" stroke-width="1.5">
+    <rect x="20" y="60" width="120" height="70" rx="8"/>
+    <rect x="180" y="60" width="140" height="70" rx="8"/>
+    <rect x="360" y="40" width="200" height="110" rx="8" fill="#fff4e6" stroke="#c2410c" stroke-width="2"/>
+    <rect x="600" y="20" width="160" height="60" rx="8"/>
+    <rect x="600" y="110" width="160" height="60" rx="8"/>
+    <rect x="800" y="60" width="140" height="70" rx="8"/>
+    <rect x="360" y="260" width="200" height="70" rx="8"/>
+  </g>
+  <g text-anchor="middle" fill="#1c1d21">
+    <text x="80" y="90" font-weight="600">Client</text><text x="80" y="110" font-size="12">vote id = UUID</text>
+    <text x="250" y="90" font-weight="600">API</text><text x="250" y="110" font-size="12">zod, role checks</text>
+    <text x="460" y="70" font-weight="600">Event ledger</text>
+    <text x="460" y="92" font-size="12">append-only (DB triggers)</text>
+    <text x="460" y="110" font-size="12">seq, hash = sha256(prev + row)</text>
+    <text x="460" y="128" font-size="12">head → anchors.log</text>
+    <text x="680" y="46" font-weight="600">Projections</text><text x="680" y="64" font-size="12">rebuildable tables</text>
+    <text x="680" y="136" font-weight="600">Result v1</text><text x="680" y="154" font-size="12">ResultPublished → ledger</text>
+    <text x="870" y="90" font-weight="600">Room / UI</text><text x="870" y="110" font-size="12">SSE, shows as_of_seq</text>
+    <text x="460" y="290" font-weight="600">Replay to asOf</text><text x="460" y="310" font-size="12">apply(state, event) up to seq</text>
+  </g>
+  <g stroke="#444" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M140,95 H175"/>
+    <path d="M320,95 H355"/>
+    <path d="M560,70 L595,55"/>
+    <path d="M560,120 L595,135"/>
+    <path d="M760,50 L795,80"/>
+    <path d="M760,140 L795,110"/>
+    <path d="M680,170 V200 H520 V155" stroke-dasharray="5 4"/>
+  </g>
+  <g stroke="#3b5bdb" stroke-width="1.8" fill="none" marker-end="url(#b)">
+    <path d="M440,150 V255"/>
+    <path d="M560,295 H870 V135"/>
+  </g>
+  <g font-size="12" fill="#3b5bdb">
+    <text x="448" y="215">read events ≤ seq</text>
+    <text x="600" y="288">?asOf= views, audit, snapshot recompute</text>
+  </g>
+  <text x="600" y="218" font-size="12" fill="#444">snapshot appended as an event</text>
+  <text x="20" y="400" font-size="12" fill="#6b6f78">Black: write path. Blue: every read and audit is a replay of the ledger, so any past moment can be reconstructed and any displayed result recomputed.</text>
+</svg>
